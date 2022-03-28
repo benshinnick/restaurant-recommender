@@ -19,6 +19,7 @@ javafx {
 }
 
 dependencies {
+    implementation("junit:junit:4.13.1")
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("no.tornado:tornadofx:1.7.19")
