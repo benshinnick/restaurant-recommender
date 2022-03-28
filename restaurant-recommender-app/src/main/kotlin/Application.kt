@@ -1,5 +1,7 @@
+import tornadofx.*
 
-
-class App: App(MyView::class) {
-
+class Application: App(MyView::class) {
+    fun main(args: Array<String>) {
+        launch<Application>(args)
+    }
 }
