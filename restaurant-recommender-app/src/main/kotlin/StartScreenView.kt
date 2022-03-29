@@ -3,8 +3,9 @@ import tornadofx.*
 
 class StartScreenView : View() {
     override val root = gridpane {
+        addClass(Styles.background)
         row {
-            text("Restaurant\nRecommender") {
+            label("Restaurant\nRecommender") {
                 addClass(Styles.startTitleText)
                 gridpaneConstraints {
                     marginTop = 55.0

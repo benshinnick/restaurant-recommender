@@ -3,9 +3,10 @@ import tornadofx.*
 
 class FoodSurveyView : View() {
     override val root = gridpane {
+        addClass(Styles.background)
         row {
-            text("Food Survey") {
-                addClass(Styles.startTitleText)
+            label("Food Survey") {
+                addClass(Styles.foodSurveyTitleText)
                 gridpaneConstraints {
                     marginTop = 55.0
                     marginLeft = 55.0
@@ -17,10 +18,9 @@ class FoodSurveyView : View() {
         }
         row {
             button("Back") {
-                addClass(Styles.startButton)
+                addClass(Styles.backButton)
                 action {
                     this@FoodSurveyView.replaceWith(StartScreenView::class, centerOnScreen = true)
-
                 }
                 gridpaneConstraints {
                     marginTop = 308.0

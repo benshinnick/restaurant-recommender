@@ -1,7 +1,12 @@
+import javafx.scene.Scene
 import javafx.stage.Stage
 import tornadofx.*
 
 class Application: App(StartScreenView::class, Styles::class) {
+
+    override fun stop() {
+        super.stop()
+    }
 
     override fun start(stage: Stage) {
         super.start(stage)
