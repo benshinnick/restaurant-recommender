@@ -15,12 +15,12 @@ class StartScreenView : View() {
             }
         }
         row {
+            addClass(Styles.startImage)
             imageview("food-icon-small.png") {
                 gridpaneConstraints {
                     hAlignment = HPos.CENTER
                 }
             }
-            addClass(Styles.startImage)
         }
         row {
             button("Start") {
