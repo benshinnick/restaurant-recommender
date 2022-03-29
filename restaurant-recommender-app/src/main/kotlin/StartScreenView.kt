@@ -1,4 +1,5 @@
 import javafx.geometry.HPos
+import javafx.geometry.Insets
 import tornadofx.*
 
 class StartScreenView : View() {
@@ -8,13 +9,18 @@ class StartScreenView : View() {
             label("Restaurant\nRecommender") {
                 addClass(Styles.startTitleText)
                 gridpaneConstraints {
-                    marginTop = 55.0
-                    marginLeft = 35.0
-                    marginRight = 35.0
-                    columnSpan = 1
+                    margin = Insets(32.0)
                     hAlignment = HPos.CENTER
                 }
             }
+        }
+        row {
+            imageview("food-icon-small.png") {
+                gridpaneConstraints {
+                    hAlignment = HPos.CENTER
+                }
+            }
+            addClass(Styles.startImage)
         }
         row {
             button("Start") {
@@ -23,8 +29,7 @@ class StartScreenView : View() {
                     this@StartScreenView.replaceWith(FoodSurveyView::class, centerOnScreen = true)
                 }
                 gridpaneConstraints {
-                    marginTop = 250.0
-                    columnSpan = 1
+                    margin = Insets(80.0)
                     hAlignment = HPos.CENTER
                 }
             }

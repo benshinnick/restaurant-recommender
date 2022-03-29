@@ -1,4 +1,3 @@
-import javafx.scene.Scene
 import javafx.stage.Stage
 import tornadofx.*
 
@@ -12,6 +11,7 @@ class Application: App(StartScreenView::class, Styles::class) {
         super.start(stage)
         stage.width = 400.0
         stage.height = 700.0
+        stage.isResizable = false
         stage.centerOnScreen()
     }
 

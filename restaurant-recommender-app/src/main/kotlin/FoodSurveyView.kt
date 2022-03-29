@@ -8,24 +8,31 @@ class FoodSurveyView : View() {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
                 gridpaneConstraints {
-                    marginTop = 55.0
-                    marginLeft = 55.0
-                    marginRight = 55.0
-                    columnSpan = 1
                     hAlignment = HPos.CENTER
                 }
             }
         }
         row {
-            button("Back") {
-                addClass(Styles.backButton)
-                action {
-                    this@FoodSurveyView.replaceWith(StartScreenView::class, centerOnScreen = true)
-                }
-                gridpaneConstraints {
-                    marginTop = 308.0
-                    columnSpan = 1
-                    hAlignment = HPos.CENTER
+            scrollpane {
+                gridpane {
+                    for (i in 1..100) {
+                        row {
+                            label("Question $i")
+                        }
+                    }
+                    row {
+                        button("Back") {
+                            addClass(Styles.backButton)
+                            action {
+                                this@FoodSurveyView.replaceWith(StartScreenView::class, centerOnScreen = true)
+                            }
+                            gridpaneConstraints {
+                                marginTop = 25.0
+                                columnSpan = 1
+                                hAlignment = HPos.CENTER
+                            }
+                        }
+                    }
                 }
             }
         }
