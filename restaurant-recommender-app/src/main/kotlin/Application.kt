@@ -4,7 +4,7 @@ import tornadofx.*
 class Application: App(StartScreenView::class, Styles::class) {
 
     override fun stop() {
-        super.stop()
+        println("Closing Application")
     }
 
     override fun start(stage: Stage) {

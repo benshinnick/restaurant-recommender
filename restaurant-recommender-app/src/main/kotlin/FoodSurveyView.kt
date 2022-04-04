@@ -121,7 +121,7 @@ class FoodSurveyView : View() {
                             button("Back") {
                                 addClass(Styles.backButton)
                                 action {
-                                    this@FoodSurveyView.replaceWith(StartScreenView::class, centerOnScreen = true)
+                                    replaceWith<StartScreenView>(centerOnScreen = true)
                                 }
                                 hboxConstraints {
                                     margin = Insets(15.0)

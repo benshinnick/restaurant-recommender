@@ -26,7 +26,7 @@ class StartScreenView : View() {
             button("Start") {
                 addClass(Styles.startButton)
                 action {
-                    this@StartScreenView.replaceWith(FoodSurveyView::class, centerOnScreen = true)
+                    replaceWith<FoodSurveyView>(centerOnScreen = true)
                 }
                 gridpaneConstraints {
                     margin = Insets(80.0)
