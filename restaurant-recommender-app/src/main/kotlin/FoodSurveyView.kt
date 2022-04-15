@@ -9,6 +9,24 @@ import tornadofx.Stylesheet.Companion.contextMenu
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
     var lNameField : TextField by singleAssign()
+    var cuisineList = listOf(
+        "American Cuisine",
+        "French Cuisine",
+        "Chinese Cuisine",
+        "Mexican Cuisine",
+        "Japanese Cuisine",
+        "Thai Cuisine",
+        "Indian Cuisine",
+        "German Cuisine",
+        "Indian Cuisine",
+        "African Cuisine",
+        "Czech/Slovak Cuisine",
+        "Pizza",
+        "Barbecue",
+        "Cafe"
+    )
+    var cuisinePreferences = IntArray(cuisineList.size)
+
 
     override val root = gridpane {
         addClass(Styles.background)
@@ -27,7 +45,7 @@ class FoodSurveyView : View() {
                 gridpane {
                     row {
                         form {
-                            fieldset("Personal Info (Just For Testing)") {
+                            fieldset("Personal Info") {
                                 field("First Name") {
                                     textfield() {
                                         fNameField = this
@@ -38,79 +56,15 @@ class FoodSurveyView : View() {
                                         lNameField = this
                                     }
                                 }
-                                field("Birthday") {
-                                    datepicker()
-                                }
                             }
                             fieldset("Food Preferences (5 = love)") {
-                                field("French Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Chinese Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Chinese Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Indian Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Italian Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Greek Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Spanish Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
+                                for (i in 0..(cuisineList.size-1)) {
+                                    field(cuisineList[i]) {
+                                        listmenu(orientation = Orientation.HORIZONTAL) {
+                                            for(j in 0 .. 5) {
+                                                item(text = j.toString()) { whenSelected {cuisinePreferences[i] = j} }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -131,6 +85,10 @@ class FoodSurveyView : View() {
                                 addClass(Styles.submitButton)
                                 action {
                                     println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+                                    println("Results:")
+                                    for (i in 0..(cuisineList.size-1)) {
+                                        println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+                                    }
                                 }
                                 hboxConstraints {
                                     margin = Insets(15.0)
