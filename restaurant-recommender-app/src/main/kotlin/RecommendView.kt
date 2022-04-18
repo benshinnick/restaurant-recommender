@@ -49,8 +49,8 @@ class RecommendView : View() {
                 action {
                     // Here is where we extract recommendation + restaurant info to display
                     restuarantNameLabel.text = "Name: " + "Le Bateau Rouge"
-                    cuisineLabel.text = "Cuisine: " + "french"
                     ratingLabel.text = "Rating: " + "★ ★ ★ ★ ☆"
+                    cuisineLabel.text = "Cuisine: " + "french"
                     addressLabel.text = "Address:  " + "44 Park Ave," + "\n\t\tPensacola, FL 32514"
                     descriptionLabel.text = "Description:\n" + "Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites."
                 }

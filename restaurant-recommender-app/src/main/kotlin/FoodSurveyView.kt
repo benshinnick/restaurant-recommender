@@ -31,10 +31,7 @@ class FoodSurveyView : View() {
         row {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
-                gridpaneConstraints {
-                    margin = Insets(25.0)
-                    hAlignment = HPos.CENTER
-                }
+                gridpaneConstraints {  margin = Insets(25.0); hAlignment = HPos.CENTER  }
             }
         }
         row {
@@ -45,14 +42,10 @@ class FoodSurveyView : View() {
                         form {
                             fieldset("Personal Info") {
                                 field("First Name") {
-                                    textfield() {
-                                        fNameField = this
-                                    }
+                                    textfield() { fNameField = this }
                                 }
                                 field("Last Name") {
-                                    textfield() {
-                                        lNameField = this
-                                    }
+                                    textfield() { lNameField = this }
                                 }
                             }
                             fieldset("Food Preferences (5 = love)") {
@@ -72,38 +65,27 @@ class FoodSurveyView : View() {
                         hbox {
                             button("Back") {
                                 addClass(Styles.backButton)
-                                action {
-                                    replaceWith<StartScreenView>(centerOnScreen = true)
-                                }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                action {  replaceWith<StartScreenView>(centerOnScreen = true)  }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
                             button("Submit") {
                                 addClass(Styles.submitButton)
                                 action {
+                                    // Printing out results
                                     println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
                                     println("Results:")
                                     for (i in cuisineList.indices) {
                                         println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
-                                        replaceWith<RecommendView>(centerOnScreen = true)
                                     }
+                                    replaceWith<RecommendView>(centerOnScreen = true)
                                 }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
-                            gridpaneConstraints {
-                                hAlignment = HPos.CENTER
-                                isFocusTraversable = false
-                            }
+                            gridpaneConstraints {  hAlignment = HPos.CENTER; isFocusTraversable = false }
                         }
                     }
                 }
-                gridpaneConstraints {
-                    marginLeft = 25.0
-                    marginBottom = 25.0
-                }
+                gridpaneConstraints { marginLeft = 25.0; marginBottom = 25.0 }
             }
         }
     }
