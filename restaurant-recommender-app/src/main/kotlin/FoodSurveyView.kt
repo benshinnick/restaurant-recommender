@@ -1,10 +1,8 @@
 import javafx.geometry.HPos
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
-import javafx.scene.control.RadioMenuItem
 import javafx.scene.control.TextField
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.contextMenu
 
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
@@ -58,7 +56,7 @@ class FoodSurveyView : View() {
                                 }
                             }
                             fieldset("Food Preferences (5 = love)") {
-                                for (i in 0..(cuisineList.size-1)) {
+                                for (i in cuisineList.indices) {
                                     field(cuisineList[i]) {
                                         listmenu(orientation = Orientation.HORIZONTAL) {
                                             for(j in 0 .. 5) {
@@ -86,8 +84,9 @@ class FoodSurveyView : View() {
                                 action {
                                     println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
                                     println("Results:")
-                                    for (i in 0..(cuisineList.size-1)) {
+                                    for (i in cuisineList.indices) {
                                         println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+                                        replaceWith<RecommendView>(centerOnScreen = true)
                                     }
                                 }
                                 hboxConstraints {

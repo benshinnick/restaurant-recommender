@@ -17,6 +17,9 @@ class Styles: Stylesheet() {
         val foodSurveyTitleText by cssclass()
         val backButton by cssclass()
         val submitButton by cssclass()
+
+        val recommendationsTitleText by cssclass()
+        val restaurantInfoText by cssclass()
     }
 
     init {
@@ -74,5 +77,22 @@ class Styles: Stylesheet() {
             fontFamily = "Arial"
             fontSize = 15.px
         }
+
+        recommendationsTitleText {
+            prefWidth = 400.px
+            fontFamily = "Arial"
+            textFill = Color.WHITE
+            fontSize = 41.px
+            textAlignment = TextAlignment.CENTER
+        }
+
+        restaurantInfoText {
+            fontFamily = "Arial"
+            textFill = Color.WHITE
+            fontSize = 20.px
+            textAlignment = TextAlignment.LEFT
+            wrapText = true
+        }
+
     }
 }
