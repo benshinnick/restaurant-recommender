@@ -131,7 +131,7 @@ class Styles: Stylesheet() {
         }
 
         backToStartButton {
-            backgroundColor += Color.DARKRED
+            backgroundColor += Color.GREEN
             textFill = Color.WHITE
             prefWidth = 250.px
             prefHeight = 50.px

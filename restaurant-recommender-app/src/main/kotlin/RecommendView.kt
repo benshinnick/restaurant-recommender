@@ -62,31 +62,18 @@ class RecommendView : View() {
         }
         row {
             button("New Recommendation") { addClass(Styles.newRecommendationButton); newRecommendationButton = this
-                action {
-                    // Here is where we extract recommendation + restaurant info to display
-                    selectButton.isVisible = true
-                    neverButton.isVisible = true
-                    setRestaurantInfo("Le Bateau Rouge", 4, "french", "44 Park Ave", "11:00 - 22:00 (Mo,Tu,We,Th,Fr,Sa,Su)","Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites.")
-                }
+                action { newRecommendationButtonOnClick() }
                 gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.CENTER  }
             }
         }
         row {
             hbox {
                 button("Select") { addClass(Styles.selectRecommendationButton); selectButton = this
-                    action {
-                        enjoyTextLabel.text = "Enjoy!"
-                        newRecommendationButton.isVisible = false
-                        selectButton.isVisible = false
-                        neverButton.isVisible = false
-                        backButton.isVisible = true
-                    }
+                    action { selectButtonOnClick() }
                     hboxConstraints { margin = Insets(5.0); alignment = Pos.CENTER }
                 }
                 button("Never") { addClass(Styles.neverButton); neverButton = this
-                    action {
-                        println("Never Button Pressed")
-                    }
+                    action { neverButtonOnClick() }
                     hboxConstraints { margin = Insets(5.0); alignment = Pos.CENTER }
                 }
                 gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 70.0); hAlignment = HPos.CENTER  }
@@ -99,17 +86,41 @@ class RecommendView : View() {
         }
         row {
             button("Back To Start") { addClass(Styles.backToStartButton); backButton = this
-                action {
-                    replaceWith<StartScreenView>(centerOnScreen = true)
-                }
+                action { backToStartButtonOnClick() }
                 gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.CENTER  }
             }
         }
-        run {
-            selectButton.isVisible = false
-            neverButton.isVisible = false
-            backButton.isVisible = false
-        }
+    }
+
+    // Initialize function
+    override fun onDock() {
+        setAllButtonsToInvisible()
+        newRecommendationButton.isVisible = true
+    }
+
+    override fun onUndock() {
+        clearAllInfoText()
+        setAllButtonsToInvisible()
+    }
+
+    private fun newRecommendationButtonOnClick() {
+        setAllButtonsToVisible()
+        backButton.isVisible = false
+        setRestaurantInfo("Le Bateau Rouge", 4, "french", "44 Park Ave", "11:00 - 22:00 (Mo,Tu,We,Th,Fr,Sa,Su)","Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites.")
+    }
+
+    private fun selectButtonOnClick() {
+        setAllButtonsToInvisible()
+        backButton.isVisible = true
+        enjoyTextLabel.text = "Enjoy!"
+    }
+
+    private fun neverButtonOnClick() {
+        println("Never Button Pressed")
+    }
+
+    private fun backToStartButtonOnClick() {
+        replaceWith<StartScreenView>(centerOnScreen = true)
     }
 
     // Ideally we change this function to accept just a restaurant parameter
@@ -131,7 +142,21 @@ class RecommendView : View() {
         return ratingText
     }
 
-    override fun onUndock() {
+    private fun setAllButtonsToVisible() {
+        newRecommendationButton.isVisible = true
+        selectButton.isVisible = true
+        neverButton.isVisible = true
+        backButton.isVisible = true
+    }
+
+    private fun setAllButtonsToInvisible() {
+        newRecommendationButton.isVisible = false
+        selectButton.isVisible = false
+        neverButton.isVisible = false
+        backButton.isVisible = false
+    }
+
+    private fun clearAllInfoText() {
         restaurantNameLabel.text = ""
         cuisineLabel.text = ""
         ratingLabel.text = ""
@@ -139,9 +164,5 @@ class RecommendView : View() {
         hoursLabel.text = ""
         descriptionLabel.text = ""
         enjoyTextLabel.text = ""
-        newRecommendationButton.isVisible = true
-        selectButton.isVisible = false
-        neverButton.isVisible = false
-        backButton.isVisible = false
     }
 }

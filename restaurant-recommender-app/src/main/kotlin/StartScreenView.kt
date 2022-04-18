@@ -20,11 +20,13 @@ class StartScreenView : View() {
         row {
             button("Start") {
                 addClass(Styles.startButton)
-                action {
-                    replaceWith<FoodSurveyView>(centerOnScreen = true)
-                }
+                action { startButtonOnClick() }
                 gridpaneConstraints { margin = Insets(80.0); hAlignment = HPos.CENTER }
             }
         }
+    }
+
+    private fun startButtonOnClick() {
+        replaceWith<FoodSurveyView>(centerOnScreen = true)
     }
 }

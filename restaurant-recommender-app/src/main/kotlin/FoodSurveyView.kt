@@ -65,20 +65,12 @@ class FoodSurveyView : View() {
                         hbox {
                             button("Back") {
                                 addClass(Styles.backButton)
-                                action {  replaceWith<StartScreenView>(centerOnScreen = true)  }
+                                action { backButtonOnClick() }
                                 hboxConstraints {  margin = Insets(15.0)  }
                             }
                             button("Submit") {
                                 addClass(Styles.submitButton)
-                                action {
-                                    // Printing out results
-                                    println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
-                                    println("Results:")
-                                    for (i in cuisineList.indices) {
-                                        println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
-                                    }
-                                    replaceWith<RecommendView>(centerOnScreen = true)
-                                }
+                                action { submitButtonOnClick() }
                                 hboxConstraints {  margin = Insets(15.0)  }
                             }
                             gridpaneConstraints {  hAlignment = HPos.CENTER; isFocusTraversable = false }
@@ -88,5 +80,19 @@ class FoodSurveyView : View() {
                 gridpaneConstraints { marginLeft = 25.0; marginBottom = 25.0 }
             }
         }
+    }
+
+    private fun backButtonOnClick() {
+        replaceWith<StartScreenView>(centerOnScreen = true)
+    }
+
+    private fun submitButtonOnClick() {
+        // Printing out results
+        println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+        println("Results:")
+        for (i in cuisineList.indices) {
+            println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+        }
+        replaceWith<RecommendView>(centerOnScreen = true)
     }
 }
