@@ -1,12 +1,10 @@
 import javafx.geometry.HPos
 import javafx.geometry.Insets
-import javafx.geometry.Orientation
 import javafx.scene.control.Label
-import javafx.scene.control.TextField
 import tornadofx.*
 
 class RecommendView : View() {
-    private var restuarantNameLabel : Label by singleAssign()
+    private var restaurantNameLabel : Label by singleAssign()
     private var cuisineLabel : Label by singleAssign()
     private var ratingLabel : Label by singleAssign()
     private var addressLabel : Label by singleAssign()
@@ -20,17 +18,17 @@ class RecommendView : View() {
             }
         }
         row {
-            label("") {  addClass(Styles.restaurantInfoText); restuarantNameLabel = this
-                gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.LEFT  }
-            }
-        }
-        row {
-            label("") {  addClass(Styles.restaurantInfoText); cuisineLabel = this
+            label("") {  addClass(Styles.restaurantInfoText); restaurantNameLabel = this
                 gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.LEFT  }
             }
         }
         row {
             label("") {  addClass(Styles.restaurantInfoText); ratingLabel = this
+                gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.LEFT  }
+            }
+        }
+        row {
+            label("") {  addClass(Styles.restaurantInfoText); cuisineLabel = this
                 gridpaneConstraints {  margin = Insets(5.0, 25.0, 5.0, 25.0); hAlignment = HPos.LEFT  }
             }
         }
@@ -48,13 +46,26 @@ class RecommendView : View() {
             button("generate recommendation") {
                 action {
                     // Here is where we extract recommendation + restaurant info to display
-                    restuarantNameLabel.text = "Name: " + "Le Bateau Rouge"
-                    ratingLabel.text = "Rating: " + "★ ★ ★ ★ ☆"
-                    cuisineLabel.text = "Cuisine: " + "french"
-                    addressLabel.text = "Address:  " + "44 Park Ave," + "\n\t\tPensacola, FL 32514"
-                    descriptionLabel.text = "Description:\n" + "Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites."
+                    setRestaurantInfo("Le Bateau Rouge", 4, "french", "44 Park Ave","Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites.")
                 }
             }
         }
+    }
+
+    private fun setRestaurantInfo(name: String, rating: Int, cuisine: String, address: String, description: String) {
+        restaurantNameLabel.text = "Name: $name"
+        ratingLabel.text = "Rating: ${getRatingStarsText(rating)}"
+        cuisineLabel.text = "Cuisine: $cuisine"
+        addressLabel.text = "Address:  $address,\n\t\tPensacola, FL 32514"
+        descriptionLabel.text = "Description:\n$description"
+    }
+
+    private fun getRatingStarsText(rating: Int): String {
+        var ratingText = ""
+        for (i in 1..5) {
+            if(i <= rating) ratingText += "★ "
+            if(i > rating) ratingText += "☆ "
+        }
+        return ratingText
     }
 }
