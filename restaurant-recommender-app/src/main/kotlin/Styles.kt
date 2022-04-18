@@ -19,7 +19,12 @@ class Styles: Stylesheet() {
         val submitButton by cssclass()
 
         val recommendationsTitleText by cssclass()
+        val restaurantInfoDisplay by cssclass()
         val restaurantInfoText by cssclass()
+        val newRecommendationButton by cssclass()
+        val selectRecommendationButton by cssclass()
+        val neverButton by cssclass()
+        val backToStartButton by cssclass()
     }
 
     init {
@@ -86,6 +91,10 @@ class Styles: Stylesheet() {
             textAlignment = TextAlignment.CENTER
         }
 
+        restaurantInfoDisplay {
+            prefHeight = 350.px
+        }
+
         restaurantInfoText {
             fontFamily = "Arial"
             textFill = Color.WHITE
@@ -94,5 +103,40 @@ class Styles: Stylesheet() {
             wrapText = true
         }
 
+        newRecommendationButton {
+            backgroundColor += Color.GREEN
+            textFill = Color.WHITE
+            prefWidth = 250.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        selectRecommendationButton {
+            backgroundColor += Color.GREEN
+            textFill = Color.WHITE
+            prefWidth = 120.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        neverButton {
+            backgroundColor += Color.DARKRED
+            textFill = Color.WHITE
+            prefWidth = 120.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        backToStartButton {
+            backgroundColor += Color.DARKRED
+            textFill = Color.WHITE
+            prefWidth = 250.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
     }
 }
