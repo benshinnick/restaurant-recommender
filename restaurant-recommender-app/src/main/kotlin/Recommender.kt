@@ -1,18 +1,16 @@
-import tornadofx.launch
 
 class Recommender {
 
-    fun main(args: Array<String>) {
-        println(temps)
-    }
+    val temps = arrayOf(Temp(3), Temp(4))
 
-    class temp(m: Int) {
+    class Temp(m: Int) {
         val max = m
         val cur = 0
-        val time = arrayOf<Double>(1.0, 1.0, 1.0)
+        val time = arrayOf(1.0, 1.0, 1.0)
     }
 
-    val temps = arrayOf<temp>(temp(3), temp(4))
-
+    fun valueCheck(r: Recommender) {
+        r.temps[0].time[1] = 2.0
+    }
 
 }
