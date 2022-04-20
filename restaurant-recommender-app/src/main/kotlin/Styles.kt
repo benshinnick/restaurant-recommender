@@ -17,6 +17,14 @@ class Styles: Stylesheet() {
         val foodSurveyTitleText by cssclass()
         val backButton by cssclass()
         val submitButton by cssclass()
+
+        val recommendationsTitleText by cssclass()
+        val restaurantInfoDisplay by cssclass()
+        val restaurantInfoText by cssclass()
+        val newRecommendationButton by cssclass()
+        val selectRecommendationButton by cssclass()
+        val neverButton by cssclass()
+        val backToStartButton by cssclass()
     }
 
     init {
@@ -73,6 +81,62 @@ class Styles: Stylesheet() {
             prefHeight = 25.px
             fontFamily = "Arial"
             fontSize = 15.px
+        }
+
+        recommendationsTitleText {
+            prefWidth = 400.px
+            fontFamily = "Arial"
+            textFill = Color.WHITE
+            fontSize = 41.px
+            textAlignment = TextAlignment.CENTER
+        }
+
+        restaurantInfoDisplay {
+            prefHeight = 350.px
+        }
+
+        restaurantInfoText {
+            fontFamily = "Arial"
+            textFill = Color.WHITE
+            fontSize = 20.px
+            textAlignment = TextAlignment.LEFT
+            wrapText = true
+        }
+
+        newRecommendationButton {
+            backgroundColor += Color.GREEN
+            textFill = Color.WHITE
+            prefWidth = 250.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        selectRecommendationButton {
+            backgroundColor += Color.GREEN
+            textFill = Color.WHITE
+            prefWidth = 120.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        neverButton {
+            backgroundColor += Color.DARKRED
+            textFill = Color.WHITE
+            prefWidth = 120.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
+        }
+
+        backToStartButton {
+            backgroundColor += Color.GREEN
+            textFill = Color.WHITE
+            prefWidth = 250.px
+            prefHeight = 50.px
+            fontFamily = "Arial"
+            fontSize = 20.px
         }
     }
 }

@@ -1,10 +1,8 @@
 import javafx.geometry.HPos
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
-import javafx.scene.control.RadioMenuItem
 import javafx.scene.control.TextField
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.contextMenu
 
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
@@ -33,10 +31,7 @@ class FoodSurveyView : View() {
         row {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
-                gridpaneConstraints {
-                    margin = Insets(25.0)
-                    hAlignment = HPos.CENTER
-                }
+                gridpaneConstraints {  margin = Insets(25.0); hAlignment = HPos.CENTER  }
             }
         }
         row {
@@ -47,18 +42,14 @@ class FoodSurveyView : View() {
                         form {
                             fieldset("Personal Info") {
                                 field("First Name") {
-                                    textfield() {
-                                        fNameField = this
-                                    }
+                                    textfield() { fNameField = this }
                                 }
                                 field("Last Name") {
-                                    textfield() {
-                                        lNameField = this
-                                    }
+                                    textfield() { lNameField = this }
                                 }
                             }
                             fieldset("Food Preferences (5 = love)") {
-                                for (i in 0..(cuisineList.size-1)) {
+                                for (i in cuisineList.indices) {
                                     field(cuisineList[i]) {
                                         listmenu(orientation = Orientation.HORIZONTAL) {
                                             for(j in 0 .. 5) {
@@ -74,38 +65,34 @@ class FoodSurveyView : View() {
                         hbox {
                             button("Back") {
                                 addClass(Styles.backButton)
-                                action {
-                                    replaceWith<StartScreenView>(centerOnScreen = true)
-                                }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                action { backButtonOnClick() }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
                             button("Submit") {
                                 addClass(Styles.submitButton)
-                                action {
-                                    println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
-                                    println("Results:")
-                                    for (i in 0..(cuisineList.size-1)) {
-                                        println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
-                                    }
-                                }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                action { submitButtonOnClick() }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
-                            gridpaneConstraints {
-                                hAlignment = HPos.CENTER
-                                isFocusTraversable = false
-                            }
+                            gridpaneConstraints {  hAlignment = HPos.CENTER; isFocusTraversable = false }
                         }
                     }
                 }
-                gridpaneConstraints {
-                    marginLeft = 25.0
-                    marginBottom = 25.0
-                }
+                gridpaneConstraints { marginLeft = 25.0; marginBottom = 25.0 }
             }
         }
+    }
+
+    private fun backButtonOnClick() {
+        replaceWith<StartScreenView>(centerOnScreen = true)
+    }
+
+    private fun submitButtonOnClick() {
+        // Printing out results
+        println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+        println("Results:")
+        for (i in cuisineList.indices) {
+            println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+        }
+        replaceWith<RecommendView>(centerOnScreen = true)
     }
 }
