@@ -37,31 +37,31 @@ object RestaurantData {
 
 
             if (newRestaurant.location.contains("\"")) {
-                    count++
-                    while(count < tokens.size) {
-                        if (tokens[count].contains("\"")) {
-                            newRestaurant.description += tokens[count]
-                            break
-                        }
-                        newRestaurant.description += tokens[count]
-                        count++
-                    }
-            }
-
-                newRestaurant.description = tokens[++count]
-
+                newRestaurant.location = newRestaurant.location.replace("\"", "")
                 count++
                 while(count < tokens.size) {
-                        if (tokens[count].contains("\"")) {
-                            newRestaurant.description += tokens[count]
-                            break
-                        }
-                        newRestaurant.description += tokens[count]
-                        count++
+                    if (tokens[count].contains("\"")) {
+                        newRestaurant.location += ", " + tokens[count].replace("\"", "")
+                        break
                     }
-
-                    restaurants.add(newRestaurant)
+                    newRestaurant.location += tokens[count]
+                    count++
+                }
             }
 
+            newRestaurant.description = tokens[++count].replace("\"", "")
+            count++
+            while(count < tokens.size) {
+                newRestaurant.description.replace("\"", "")
+                if (tokens[count].contains("\"")) {
+                    newRestaurant.description += tokens[count].replace("\"", "")
+                    break
+                }
+                newRestaurant.description += tokens[count]
+                count++
+            }
+
+            restaurants.add(newRestaurant)
+        }
     }
 }
