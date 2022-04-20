@@ -54,6 +54,7 @@ class Styles: Stylesheet() {
         }
 
         foodSurveyScrollPane {
+            fontFamily = "Arial"
             minWidth = 350.px
         }
 

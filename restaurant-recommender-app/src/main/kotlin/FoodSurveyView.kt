@@ -1,10 +1,8 @@
 import javafx.geometry.HPos
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
-import javafx.scene.control.RadioMenuItem
 import javafx.scene.control.TextField
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.contextMenu
 
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
@@ -12,6 +10,7 @@ class FoodSurveyView : View() {
 
     override val root = gridpane {
         addClass(Styles.background)
+
         row {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
