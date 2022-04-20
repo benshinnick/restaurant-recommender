@@ -5,6 +5,7 @@ import javafx.scene.control.TextField
 import tornadofx.*
 
 class FoodSurveyView : View() {
+    var userData = UserManager()
     var fNameField : TextField by singleAssign()
     var lNameField : TextField by singleAssign()
     var cuisineList = listOf(
@@ -94,6 +95,8 @@ class FoodSurveyView : View() {
         for (i in cuisineList.indices) {
             println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
         }
+
+        userData.addUser(fNameField.text, lNameField.text, cuisineList, cuisinePreferences)
         replaceWith<RecommendView>(centerOnScreen = true)
     }
 }
