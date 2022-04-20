@@ -1,10 +1,12 @@
 import javafx.stage.Stage
 import tornadofx.*
+import kotlin.system.exitProcess
 
 class Application: App(StartScreenView::class, Styles::class) {
 
     override fun stop() {
-        super.stop()
+        println("Closing Application")
+        exitProcess(0)
     }
 
     override fun start(stage: Stage) {

@@ -7,6 +7,24 @@ import tornadofx.*
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
     var lNameField : TextField by singleAssign()
+    var cuisineList = listOf(
+        "American Cuisine",
+        "French Cuisine",
+        "Chinese Cuisine",
+        "Mexican Cuisine",
+        "Japanese Cuisine",
+        "Thai Cuisine",
+        "Indian Cuisine",
+        "German Cuisine",
+        "Indian Cuisine",
+        "African Cuisine",
+        "Czech/Slovak Cuisine",
+        "Pizza",
+        "Barbecue",
+        "Cafe"
+    )
+    var cuisinePreferences = IntArray(cuisineList.size)
+
 
     override val root = gridpane {
         addClass(Styles.background)
@@ -14,10 +32,7 @@ class FoodSurveyView : View() {
         row {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
-                gridpaneConstraints {
-                    margin = Insets(25.0)
-                    hAlignment = HPos.CENTER
-                }
+                gridpaneConstraints {  margin = Insets(25.0); hAlignment = HPos.CENTER  }
             }
         }
         row {
@@ -26,90 +41,22 @@ class FoodSurveyView : View() {
                 gridpane {
                     row {
                         form {
-                            fieldset("Personal Info (Just For Testing)") {
+                            fieldset("Personal Info") {
                                 field("First Name") {
-                                    textfield() {
-                                        fNameField = this
-                                    }
+                                    textfield() { fNameField = this }
                                 }
                                 field("Last Name") {
-                                    textfield() {
-                                        lNameField = this
-                                    }
-                                }
-                                field("Birthday") {
-                                    datepicker()
+                                    textfield() { lNameField = this }
                                 }
                             }
                             fieldset("Food Preferences (5 = love)") {
-                                field("French Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Chinese Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Chinese Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Indian Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Italian Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Greek Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
-                                    }
-                                }
-                                field("Spanish Cuisine") {
-                                    listmenu(orientation = Orientation.HORIZONTAL) {
-                                        item(text = "0")
-                                        item(text = "1")
-                                        item(text = "2")
-                                        item(text = "3")
-                                        item(text = "4")
-                                        item(text = "5")
+                                for (i in cuisineList.indices) {
+                                    field(cuisineList[i]) {
+                                        listmenu(orientation = Orientation.HORIZONTAL) {
+                                            for(j in 0 .. 5) {
+                                                item(text = j.toString()) { whenSelected {cuisinePreferences[i] = j} }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -119,34 +66,34 @@ class FoodSurveyView : View() {
                         hbox {
                             button("Back") {
                                 addClass(Styles.backButton)
-                                action {
-                                    this@FoodSurveyView.replaceWith(StartScreenView::class, centerOnScreen = true)
-                                }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                action { backButtonOnClick() }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
                             button("Submit") {
                                 addClass(Styles.submitButton)
-                                action {
-                                    println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
-                                }
-                                hboxConstraints {
-                                    margin = Insets(15.0)
-                                }
+                                action { submitButtonOnClick() }
+                                hboxConstraints {  margin = Insets(15.0)  }
                             }
-                            gridpaneConstraints {
-                                hAlignment = HPos.CENTER
-                                isFocusTraversable = false
-                            }
+                            gridpaneConstraints {  hAlignment = HPos.CENTER; isFocusTraversable = false }
                         }
                     }
                 }
-                gridpaneConstraints {
-                    marginLeft = 25.0
-                    marginBottom = 25.0
-                }
+                gridpaneConstraints { marginLeft = 25.0; marginBottom = 25.0 }
             }
         }
+    }
+
+    private fun backButtonOnClick() {
+        replaceWith<StartScreenView>(centerOnScreen = true)
+    }
+
+    private fun submitButtonOnClick() {
+        // Printing out results
+        println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+        println("Results:")
+        for (i in cuisineList.indices) {
+            println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+        }
+        replaceWith<RecommendView>(centerOnScreen = true)
     }
 }
