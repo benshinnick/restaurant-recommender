@@ -1,6 +1,6 @@
 import java.util.Vector
 
-class UserManager {
+object UserManager {
     var users = Vector<User>()
 
     fun addUser(firstName: String, lastName: String, cuisineList: List<String>, cuisinePreferences: IntArray) {
@@ -13,6 +13,10 @@ class UserManager {
         }
 
         users.add(newUser)
+    }
+
+    fun getLatestUser(): User? {
+        return users.last()
     }
 
     fun findUser(firstName : String): User? {
