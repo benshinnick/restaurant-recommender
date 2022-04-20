@@ -28,6 +28,7 @@ class FoodSurveyView : View() {
 
     override val root = gridpane {
         addClass(Styles.background)
+
         row {
             label("Food Survey") {
                 addClass(Styles.foodSurveyTitleText)
