@@ -23,8 +23,8 @@ class Recommender {
         var restaurant: Restaurant? = null
     ) {
         fun decrementCoolDown() {
-            if (--coolDown < 0)
-                coolDown = maxCoolDown
+            if (coolDown > 0)
+                coolDown--
         }
     }
 
