@@ -23,6 +23,4 @@ class Restaurant () {
         }
     var location = ""
     var description = ""
-
-
 }
