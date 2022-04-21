@@ -7,21 +7,21 @@ import tornadofx.*
 class FoodSurveyView : View() {
     var fNameField : TextField by singleAssign()
     var lNameField : TextField by singleAssign()
-    var cuisineList = listOf(
-        "American Cuisine",
-        "French Cuisine",
-        "Chinese Cuisine",
-        "Mexican Cuisine",
-        "Japanese Cuisine",
-        "Thai Cuisine",
-        "Indian Cuisine",
-        "German Cuisine",
-        "Indian Cuisine",
-        "African Cuisine",
-        "Czech/Slovak Cuisine",
-        "Pizza",
-        "Barbecue",
-        "Cafe"
+    private var cuisineList = listOf(
+        "american",
+        "french",
+        "chinese",
+        "mexican",
+        "japanese",
+        "thai",
+        "indian",
+        "german",
+        "african",
+        "czech/slovak",
+        "vegetarian",
+        "pizza",
+        "barbecue",
+        "cafe"
     )
     var cuisinePreferences = IntArray(cuisineList.size)
 

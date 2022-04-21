@@ -6,6 +6,8 @@ import javafx.scene.control.Label
 import tornadofx.*
 
 class RecommendView : View() {
+    private lateinit var recommender: Recommender
+
     private var restaurantNameLabel : Label by singleAssign()
     private var cuisineLabel : Label by singleAssign()
     private var ratingLabel : Label by singleAssign()
@@ -95,6 +97,8 @@ class RecommendView : View() {
     // Initialize function
     override fun onDock() {
         setAllButtonsToInvisible()
+        recommender = Recommender()
+        recommender.generateRecommendations(UserManager.getLatestUser(), 2)
         newRecommendationButton.isVisible = true
     }
 
@@ -106,21 +110,31 @@ class RecommendView : View() {
     private fun newRecommendationButtonOnClick() {
         setAllButtonsToVisible()
         backButton.isVisible = false
-        setRestaurantInfo(RestaurantData.restaurants[(0..RestaurantData.restaurants.size - 1).random()])
+        recommender.passCurrent()
+        setNextRecommendation()
     }
 
     private fun selectButtonOnClick() {
         setAllButtonsToInvisible()
+        recommender.acceptCurrent()
         backButton.isVisible = true
         enjoyTextLabel.text = "Enjoy!"
     }
 
     private fun neverButtonOnClick() {
-        println("Never Button Pressed")
+        recommender.rejectCurrent()
+        setNextRecommendation()
     }
 
     private fun backToStartButtonOnClick() {
         replaceWith<StartScreenView>(centerOnScreen = true)
+    }
+
+    private fun setNextRecommendation() {
+        if(recommender.hasNext())
+            recommender.getNextRecommendation()?.let { setRestaurantInfo(it) }
+        else
+            recommender.generateRecommendations(UserManager.getLatestUser(), 2)
     }
 
     private fun setRestaurantInfo(restaurant: Restaurant) {
