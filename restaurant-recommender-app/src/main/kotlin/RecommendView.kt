@@ -106,7 +106,7 @@ class RecommendView : View() {
     private fun newRecommendationButtonOnClick() {
         setAllButtonsToVisible()
         backButton.isVisible = false
-        setRestaurantInfo("Le Bateau Rouge", 4, "french", "44 Park Ave", "11:00 - 22:00 (Mo,Tu,We,Th,Fr,Sa,Su)","Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites.")
+        setRestaurantInfo(RestaurantData.restaurants[(0..RestaurantData.restaurants.size - 1).random()])
     }
 
     private fun selectButtonOnClick() {
@@ -123,14 +123,13 @@ class RecommendView : View() {
         replaceWith<StartScreenView>(centerOnScreen = true)
     }
 
-    // Ideally we change this function to accept just a restaurant parameter
-    private fun setRestaurantInfo(name: String, rating: Int, cuisine: String, address: String, hoursInfo: String, description: String) {
-        restaurantNameLabel.text = "Name: $name"
-        ratingLabel.text = "Rating: ${getRatingStarsText(rating)}"
-        cuisineLabel.text = "Cuisine: $cuisine"
-        addressLabel.text = "Address:  $address,\n\t\tPensacola, FL 32514"
-        hoursLabel.text = "Hours:\n$hoursInfo"
-        descriptionLabel.text = "Description:\n$description"
+    private fun setRestaurantInfo(restaurant: Restaurant) {
+        restaurantNameLabel.text = "Name: ${restaurant.name}"
+        ratingLabel.text = "Rating: ${getRatingStarsText(restaurant.rating)}"
+        cuisineLabel.text = "Cuisine: ${restaurant.cuisine}"
+        addressLabel.text = "Address:  ${restaurant.location},\n\t\tPensacola, FL 32514"
+        hoursLabel.text = "Hours:\n${restaurant.getHoursInfoString()}"
+        descriptionLabel.text = "Description:\n${restaurant.description}"
     }
 
     private fun getRatingStarsText(rating: Int): String {
