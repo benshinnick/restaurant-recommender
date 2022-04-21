@@ -4,6 +4,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import tornadofx.*
+import java.util.*
 
 class RecommendView : View() {
     private lateinit var recommender: Recommender
@@ -98,7 +99,8 @@ class RecommendView : View() {
     override fun onDock() {
         setAllButtonsToInvisible()
         recommender = Recommender()
-        recommender.generateRecommendations(UserManager.getLatestUser(), 2)
+
+        recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
         newRecommendationButton.isVisible = true
     }
 
@@ -133,8 +135,20 @@ class RecommendView : View() {
     private fun setNextRecommendation() {
         if(recommender.hasNext())
             recommender.getNextRecommendation()?.let { setRestaurantInfo(it) }
-        else
-            recommender.generateRecommendations(UserManager.getLatestUser(), 2)
+        else {
+            setAllButtonsToInvisible()
+            recommender.acceptCurrent()
+            backButton.isVisible = true
+            enjoyTextLabel.text = "Out of Recommendations!"
+        }
+    }
+
+    private fun getTimeOfDayInt(): Int {
+        val c = Calendar.getInstance()
+        val hour = c.get(Calendar.HOUR_OF_DAY)
+        if(hour < 10) return 0
+        if(hour < 16) return 1
+        else return 2
     }
 
     private fun setRestaurantInfo(restaurant: Restaurant) {
