@@ -1,19 +1,19 @@
 
-class Recommender(restaurantData: RestaurantData) {
+class Recommender {
 
     private val initMaxCoolDown = 7
     private val maxCoolDownDecrement = 1
     private val maxCoolDownIncrement = 1
     private val timeDecrement = 0.1
     private val timeIncrement = 1.0
-    private val parallelData = Array(restaurantData.restaurants.size) { Data(initMaxCoolDown) }
+    private val parallelData = Array(RestaurantData.restaurants.size) { Data(initMaxCoolDown) }
     private val sortedIndices = Array(parallelData.size) { -1 }
     private var currentIndex = parallelData.size
     private var currentTimeOfDay = -1
 
     init {
         for (i in parallelData.indices)
-            parallelData[i].restaurant = restaurantData.restaurants[i]
+            parallelData[i].restaurant = RestaurantData.restaurants[i]
     }
 
     class Data(
@@ -58,7 +58,7 @@ class Recommender(restaurantData: RestaurantData) {
     }
 
     fun hasNext(): Boolean {
-        return currentIndex < parallelData.size
+        return currentIndex < parallelData.size - 1
     }
 
     fun getNextRecommendation(): Restaurant? {

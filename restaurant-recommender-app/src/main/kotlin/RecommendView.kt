@@ -4,8 +4,11 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import tornadofx.*
+import java.util.*
 
 class RecommendView : View() {
+    private lateinit var recommender: Recommender
+
     private var restaurantNameLabel : Label by singleAssign()
     private var cuisineLabel : Label by singleAssign()
     private var ratingLabel : Label by singleAssign()
@@ -95,6 +98,9 @@ class RecommendView : View() {
     // Initialize function
     override fun onDock() {
         setAllButtonsToInvisible()
+        recommender = Recommender()
+
+        recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
         newRecommendationButton.isVisible = true
     }
 
@@ -106,31 +112,52 @@ class RecommendView : View() {
     private fun newRecommendationButtonOnClick() {
         setAllButtonsToVisible()
         backButton.isVisible = false
-        setRestaurantInfo("Le Bateau Rouge", 4, "french", "44 Park Ave", "11:00 - 22:00 (Mo,Tu,We,Th,Fr,Sa,Su)","Fine French dining in a romantic setting. From soupe à l'oignon to coq au vin, let our chef delight you with a local take on authentic favorites.")
+        recommender.passCurrent()
+        setNextRecommendation()
     }
 
     private fun selectButtonOnClick() {
         setAllButtonsToInvisible()
+        recommender.acceptCurrent()
         backButton.isVisible = true
         enjoyTextLabel.text = "Enjoy!"
     }
 
     private fun neverButtonOnClick() {
-        println("Never Button Pressed")
+        recommender.rejectCurrent()
+        setNextRecommendation()
     }
 
     private fun backToStartButtonOnClick() {
         replaceWith<StartScreenView>(centerOnScreen = true)
     }
 
-    // Ideally we change this function to accept just a restaurant parameter
-    private fun setRestaurantInfo(name: String, rating: Int, cuisine: String, address: String, hoursInfo: String, description: String) {
-        restaurantNameLabel.text = "Name: $name"
-        ratingLabel.text = "Rating: ${getRatingStarsText(rating)}"
-        cuisineLabel.text = "Cuisine: $cuisine"
-        addressLabel.text = "Address:  $address,\n\t\tPensacola, FL 32514"
-        hoursLabel.text = "Hours:\n$hoursInfo"
-        descriptionLabel.text = "Description:\n$description"
+    private fun setNextRecommendation() {
+        if(recommender.hasNext())
+            recommender.getNextRecommendation()?.let { setRestaurantInfo(it) }
+        else {
+            setAllButtonsToInvisible()
+            recommender.acceptCurrent()
+            backButton.isVisible = true
+            enjoyTextLabel.text = "Out of Recommendations!"
+        }
+    }
+
+    private fun getTimeOfDayInt(): Int {
+        val c = Calendar.getInstance()
+        val hour = c.get(Calendar.HOUR_OF_DAY)
+        if(hour < 10) return 0
+        if(hour < 16) return 1
+        else return 2
+    }
+
+    private fun setRestaurantInfo(restaurant: Restaurant) {
+        restaurantNameLabel.text = "Name: ${restaurant.name}"
+        ratingLabel.text = "Rating: ${getRatingStarsText(restaurant.rating)}"
+        cuisineLabel.text = "Cuisine: ${restaurant.cuisine}"
+        addressLabel.text = "Address:  ${restaurant.location},\n\t\tPensacola, FL 32514"
+        hoursLabel.text = "Hours:\n${restaurant.getHoursInfoString()}"
+        descriptionLabel.text = "Description:\n${restaurant.description}"
     }
 
     private fun getRatingStarsText(rating: Int): String {
