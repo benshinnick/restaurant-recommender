@@ -7,7 +7,7 @@ class User {
 
     fun addPreference(cuisine : String, rating : Int) {
         if (rating in 0..5) {
-            cuisinePreferences.put(cuisine, rating)
+            cuisinePreferences[cuisine] = rating
         }
     }
 

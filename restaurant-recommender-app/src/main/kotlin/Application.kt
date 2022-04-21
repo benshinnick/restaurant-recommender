@@ -22,13 +22,14 @@ class Application: App(StartScreenView::class, Styles::class) {
     }
 
     fun main(args: Array<String>) {
-        //launch<Application>(args)
-        val rest = RestData()
-        val r1 = Recommender(rest)
-        val arr = arrayOf(3,4,2,1,2,3)
-        r1.generateRecommendations(arr, 2)
-        while (r1.hasNext()) {
-            println(r1.getNextRecommendation()?.name)
-        }
+        launch<Application>(args)
+//        val rest = RestaurantData()
+//        rest.readFile()
+//        val r1 = Recommender(rest)
+//        val user = User()
+//        r1.generateRecommendations(user, 2)
+//        while (r1.hasNext()) {
+//            println(r1.getNextRecommendation()?.name)
+//        }
     }
 }
