@@ -11,8 +11,6 @@ class Recommender {
     private var currentIndex = parallelData.size
     private var currentTimeOfDay = -1
 
-    private val userPrefTemp = 3
-
     init {
         for (i in parallelData.indices)
             parallelData[i].restaurant = RestaurantData.restaurants[i]
@@ -79,7 +77,8 @@ class Recommender {
         data.timesPreferred[currentTimeOfDay] += timeIncrement
         if (data.coolDown > 0)
             if (data.maxCoolDown > 0)
-            data.maxCoolDown -= maxCoolDownDecrement
+                data.maxCoolDown -= maxCoolDownDecrement
+        resetCoolDown(data)
     }
 
     fun rejectCurrent() {
