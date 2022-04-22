@@ -2,7 +2,7 @@ class RunApp {
     companion object{
         @JvmStatic
         fun main(args: Array<String>) {
-            RestaurantData().readFile()
+            RestaurantData.readFile()
             Application().main(args)
         }
     }

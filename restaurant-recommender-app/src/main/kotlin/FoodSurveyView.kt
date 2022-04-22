@@ -5,24 +5,23 @@ import javafx.scene.control.TextField
 import tornadofx.*
 
 class FoodSurveyView : View() {
-    var userData = UserManager()
     var fNameField : TextField by singleAssign()
     var lNameField : TextField by singleAssign()
-    var cuisineList = listOf(
-        "American Cuisine",
-        "French Cuisine",
-        "Chinese Cuisine",
-        "Mexican Cuisine",
-        "Japanese Cuisine",
-        "Thai Cuisine",
-        "Indian Cuisine",
-        "German Cuisine",
-        "Indian Cuisine",
-        "African Cuisine",
-        "Czech/Slovak Cuisine",
-        "Pizza",
-        "Barbecue",
-        "Cafe"
+    private var cuisineList = listOf(
+        "american",
+        "french",
+        "chinese",
+        "mexican",
+        "japanese",
+        "thai",
+        "indian",
+        "german",
+        "african",
+        "czech/slovak",
+        "vegetarian",
+        "pizza",
+        "barbecue",
+        "cafe"
     )
     var cuisinePreferences = IntArray(cuisineList.size)
 
@@ -90,13 +89,13 @@ class FoodSurveyView : View() {
 
     private fun submitButtonOnClick() {
         // Printing out results
-        println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
-        println("Results:")
+        println("\n${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+        println("\nResults:")
         for (i in cuisineList.indices) {
-            println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+            println("  " + cuisinePreferences[i].toString() + " - " + cuisineList[i])
         }
 
-        userData.addUser(fNameField.text, lNameField.text, cuisineList, cuisinePreferences)
+        UserManager.addUser(fNameField.text, lNameField.text, cuisineList, cuisinePreferences)
         replaceWith<RecommendView>(centerOnScreen = true)
     }
 }

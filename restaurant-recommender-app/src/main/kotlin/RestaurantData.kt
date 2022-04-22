@@ -1,7 +1,7 @@
 import java.io.File
 import java.util.Vector
 
-class RestaurantData {
+object RestaurantData {
     var filename = "RestaurantData.csv"
     var restaurants =  Vector<Restaurant>()
 
@@ -19,7 +19,7 @@ class RestaurantData {
             newRestaurant.openTime = tokens[++count]
             newRestaurant.closeTime = tokens[++count]
 
-            newRestaurant.daysOpen = tokens[++count]
+            newRestaurant.daysOpen = tokens[++count] + " "
 
             count++
             while(count < tokens.size) {
@@ -27,7 +27,7 @@ class RestaurantData {
                     newRestaurant.daysOpen += tokens[count]
                     break
                 }
-                newRestaurant.daysOpen += tokens[count]
+                newRestaurant.daysOpen += tokens[count] + " "
                 count++
             }
 
@@ -35,12 +35,26 @@ class RestaurantData {
             newRestaurant.rating = tokens[++count].toInt()
             newRestaurant.location = tokens[++count]
 
-            newRestaurant.description = tokens[++count]
 
+            if (newRestaurant.location.contains("\"")) {
+                newRestaurant.location = newRestaurant.location.replace("\"", "")
+                count++
+                while(count < tokens.size) {
+                    if (tokens[count].contains("\"")) {
+                        newRestaurant.location += ", " + tokens[count].replace("\"", "")
+                        break
+                    }
+                    newRestaurant.location += tokens[count]
+                    count++
+                }
+            }
+
+            newRestaurant.description = tokens[++count].replace("\"", "")
             count++
             while(count < tokens.size) {
+                newRestaurant.description.replace("\"", "")
                 if (tokens[count].contains("\"")) {
-                    newRestaurant.description += tokens[count]
+                    newRestaurant.description += tokens[count].replace("\"", "")
                     break
                 }
                 newRestaurant.description += tokens[count]
