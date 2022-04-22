@@ -7,6 +7,7 @@ import tornadofx.*
 import java.util.*
 
 class RecommendView : View() {
+    //private lateinit var recommender: Recommender
     private lateinit var recommender: Recommender
 
     private var restaurantNameLabel : Label by singleAssign()
@@ -98,8 +99,8 @@ class RecommendView : View() {
     // Initialize function
     override fun onDock() {
         setAllButtonsToInvisible()
-        recommender = Recommender()
-
+        recommender = Recommender
+        println("tesit")
         recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
         newRecommendationButton.isVisible = true
     }
