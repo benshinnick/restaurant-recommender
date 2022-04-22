@@ -100,7 +100,6 @@ class RecommendView : View() {
     override fun onDock() {
         setAllButtonsToInvisible()
         recommender = Recommender
-        println("tesit")
         recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
         newRecommendationButton.isVisible = true
     }

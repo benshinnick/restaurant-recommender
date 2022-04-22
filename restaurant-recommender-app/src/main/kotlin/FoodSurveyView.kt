@@ -89,10 +89,10 @@ class FoodSurveyView : View() {
 
     private fun submitButtonOnClick() {
         // Printing out results
-        println("${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
-        println("Results:")
+        println("\n${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
+        println("\nResults:")
         for (i in cuisineList.indices) {
-            println(cuisineList[i] + " - " + cuisinePreferences[i].toString())
+            println("  " + cuisinePreferences[i].toString() + " - " + cuisineList[i])
         }
 
         UserManager.addUser(fNameField.text, lNameField.text, cuisineList, cuisinePreferences)

@@ -18,11 +18,12 @@ object Recommender {
     }
 
     class Data(
-        var maxCoolDown: Int,
-        var coolDown: Int = 0,
-        val timesPreferred: DoubleArray = doubleArrayOf(1.0, 1.0, 1.0),
-        var restaurant: Restaurant? = null
+        var maxCoolDown: Int
     ) {
+        var coolDown: Int = 0
+        val timesPreferred: DoubleArray = doubleArrayOf(1.0, 1.0, 1.0)
+        var restaurant: Restaurant? = null
+
         fun decrementCoolDown() {
             if (coolDown > 0)
                 coolDown--
@@ -38,18 +39,13 @@ object Recommender {
             d.decrementCoolDown()
     }
 
-    private fun zeroAllCoolDowns() {
-        for (d in parallelData)
-            d.coolDown = 0
-    }
-
     fun generateRecommendations(user: User, timeOfDay: Int) {
         currentIndex = -1
         currentTimeOfDay = timeOfDay
         currentUser = user
-        zeroAllCoolDowns()
         for (i in sortedIndices.indices)
             sortedIndices[i] = -1
+        println("\nSorted list:")
         for (i in parallelData.indices) {
             var max = 0.0
             var nextIndex = 0
@@ -57,13 +53,13 @@ object Recommender {
                 if (sortedIndices.contains(checking))
                     continue
                 val data = parallelData[checking]
-                val heuristic = (data.maxCoolDown - data.coolDown) * currentUser.findPreference(data.restaurant!!.cuisine)!! * data.timesPreferred[currentTimeOfDay]
+                val heuristic = (1 - data.coolDown.toDouble() / (data.maxCoolDown + 1)) * currentUser.findPreference(data.restaurant!!.cuisine)!! * data.timesPreferred[currentTimeOfDay]
                 if (heuristic >= max) {
                     max = heuristic
                     nextIndex = checking
                 }
             }
-            println("max: $max - ${parallelData[nextIndex].restaurant?.name}")
+            println("  heuristic: $max - ${parallelData[nextIndex].restaurant?.name}")
             sortedIndices[i] = nextIndex
         }
     }
@@ -73,16 +69,7 @@ object Recommender {
     }
 
     fun getNextRecommendation(): Restaurant? {
-        currentIndex++
-        val data = parallelData[sortedIndices[currentIndex]]
-        val heuristic = (data.maxCoolDown - data.coolDown) * currentUser.findPreference(data.restaurant!!.cuisine)!! * data.timesPreferred[currentTimeOfDay]
-        println(data.restaurant!!.name)
-        println(data.maxCoolDown)
-        println(-data.coolDown)
-        println(currentUser.findPreference(data.restaurant!!.cuisine)!!)
-        println(data.timesPreferred[currentTimeOfDay])
-        println(heuristic)
-        return parallelData[sortedIndices[currentIndex]].restaurant
+        return parallelData[sortedIndices[++currentIndex]].restaurant
     }
 
     fun passCurrent() {
@@ -101,10 +88,7 @@ object Recommender {
             if (data.maxCoolDown > 0)
                 data.maxCoolDown -= maxCoolDownDecrement
         }
-        println(data.coolDown)
-        println("ligma")
-        data.coolDown = data.maxCoolDown
-        println(data.coolDown)
+        data.resetCoolDown()
     }
 
     fun rejectCurrent() {
