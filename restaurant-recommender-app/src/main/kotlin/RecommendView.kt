@@ -7,9 +7,6 @@ import tornadofx.*
 import java.util.*
 
 class RecommendView : View() {
-    //private lateinit var recommender: Recommender
-    private lateinit var recommender: Recommender
-
     private var restaurantNameLabel : Label by singleAssign()
     private var cuisineLabel : Label by singleAssign()
     private var ratingLabel : Label by singleAssign()
@@ -99,8 +96,7 @@ class RecommendView : View() {
     // Initialize function
     override fun onDock() {
         setAllButtonsToInvisible()
-        recommender = Recommender
-        recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
+        Recommender.generateRecommendations(UserManager.getLatestUser(), getTimeOfDayInt())
         newRecommendationButton.isVisible = true
     }
 
@@ -112,19 +108,19 @@ class RecommendView : View() {
     private fun newRecommendationButtonOnClick() {
         setAllButtonsToVisible()
         backButton.isVisible = false
-        recommender.passCurrent()
+        Recommender.passCurrent()
         setNextRecommendation()
     }
 
     private fun selectButtonOnClick() {
         setAllButtonsToInvisible()
-        recommender.acceptCurrent()
+        Recommender.acceptCurrent()
         backButton.isVisible = true
         enjoyTextLabel.text = "Enjoy!"
     }
 
     private fun neverButtonOnClick() {
-        recommender.rejectCurrent()
+        Recommender.rejectCurrent()
         setNextRecommendation()
     }
 
@@ -133,11 +129,11 @@ class RecommendView : View() {
     }
 
     private fun setNextRecommendation() {
-        if(recommender.hasNext())
-            recommender.getNextRecommendation()?.let { setRestaurantInfo(it) }
+        if(Recommender.hasNext())
+            Recommender.getNextRecommendation()?.let { setRestaurantInfo(it) }
         else {
             setAllButtonsToInvisible()
-            recommender.acceptCurrent()
+            Recommender.acceptCurrent()
             backButton.isVisible = true
             enjoyTextLabel.text = "Out of Recommendations!"
         }

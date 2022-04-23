@@ -88,7 +88,6 @@ class FoodSurveyView : View() {
     }
 
     private fun submitButtonOnClick() {
-        // Printing out results
         println("\n${fNameField.textProperty().value} ${lNameField.textProperty().value} Submitted")
         println("\nResults:")
         for (i in cuisineList.indices) {
