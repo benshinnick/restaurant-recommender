@@ -38,7 +38,7 @@ We will have 10 teams in the class. You will have approximately 15 minutes to pi
 ## Presentation policies
 1. Make sure everyone in the group has a working microphone or access to one via another group member. As mentioned in the project description, everyone is expected to present.
 2. Each group will have a single designated "page turner."  I will make that person the presenter. This person will share his or her desktop to run the presentation and any demos you might have. Obviously, this person will forward through the pages of the presentation at the proper time.
-3. When you present. The first speaker should clearly announce his or her name. When she or he is done, s/he should state the name of the next person to speak. As the new speaker starts, she or he should repeat his or her name. Much as I would hate to do it, I WILL interrupt you to ask your name if I do not know who is talking.
+3. When you present. The first speaker should clearly announce his or her name. When she or he is done, s/he should state the name of the next person to speak. As the new speaker starts, she or he should repeat his or her name. Much as I would hate to do it, I **WILL** interrupt you to ask your name if I do not know who is talking.
 
 ## Grading
 The project will be graded on the basis of the interestingness of your idea, the appearance of having put real effort into the development of your prototype, how convincing your pitch is, and completeness of your submission (eg: inclusion of your project plan and evaluation).
@@ -50,5 +50,5 @@ You will submit the following by the close date and time for project 5:
 - project evaluation document
 - presentation materials (if any)
 - source code
-- executable code (if separate from source code
+- executable code (if separate from source code)
 - any other deliverables associated with the project
