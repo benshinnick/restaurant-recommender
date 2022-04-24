@@ -1,5 +1,5 @@
 # Restaurant Recommender
-Food Recommendation App Built In Kotlin
+Restaurant Recommendation App Built In Kotlin
 
 # Project Instructions
 ## Introduction
